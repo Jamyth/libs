@@ -30,7 +30,7 @@ export const RuleSeverity = {
   Error: 2,
 };
 
-export const config: CommitlintConfig = {
+const config: CommitlintConfig = {
   extends: ["@commitlint/config-conventional"],
   parserPreset: {
     parserOpts: {
@@ -59,3 +59,5 @@ export const config: CommitlintConfig = {
     "footer-max-line-length": [RuleSeverity.Warning, "always", 100],
   },
 };
+
+module.exports = config;
