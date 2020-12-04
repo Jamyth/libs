@@ -4,4 +4,8 @@
 
 # Node Modules
 /node_modules/
-/*/node_modules/
+/packages/*/node_modules/
+
+# Yarn log
+yarn-error.log
+/package/*/yarn-error.log
