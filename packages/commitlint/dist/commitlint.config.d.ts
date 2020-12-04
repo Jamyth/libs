@@ -26,4 +26,3 @@ export declare const RuleSeverity: {
     Warning: number;
     Error: number;
 };
-export declare const config: CommitlintConfig;
