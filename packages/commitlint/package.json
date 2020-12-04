@@ -1,5 +1,5 @@
 {
-  "name": "commitlint",
+  "name": "jamyth-commitlint",
   "version": "1.0.0",
   "description": "A preset of commitlint config package",
   "main": "dist/config.js",
