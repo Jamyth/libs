@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = exports.RuleSeverity = void 0;
+exports.RuleSeverity = void 0;
 exports.RuleSeverity = {
     Disabled: 0,
     Warning: 1,
     Error: 2,
 };
-exports.config = {
+const config = {
     extends: ["@commitlint/config-conventional"],
     parserPreset: {
         parserOpts: {
@@ -34,3 +34,4 @@ exports.config = {
         "footer-max-line-length": [exports.RuleSeverity.Warning, "always", 100],
     },
 };
+module.exports = config;
