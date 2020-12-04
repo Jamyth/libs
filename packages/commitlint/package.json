@@ -1,0 +1,19 @@
+{
+  "name": "commitlint",
+  "version": "1.0.0",
+  "description": "A preset of commitlint config package",
+  "main": "dist/config.js",
+  "author": "Jamyth Luk",
+  "license": "MIT",
+  "peerDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc --project ./config/tsconfig.src.json",
+    "build:workspace": "tsc --project ./config/tsconfig.workspace.json"
+  },
+  "engines": {
+    "node": ">= 12.16"
+  }
+}
