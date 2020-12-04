@@ -1,6 +1,6 @@
 {
   "name": "jamyth-commitlint",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A preset of commitlint config package",
   "main": "dist/config.js",
   "author": "Jamyth Luk",
