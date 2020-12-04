@@ -1,0 +1,23 @@
+{
+  "name": "jamyth-frontend-libs",
+  "version": "1.0.0",
+  "author": "Jamyth Luk",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "packages/*"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "^4.3.0"
+  },
+  "husky": {
+    "commit-msg": "commitlint --env HUSKY_GIT_PARAMS --config packages/commitlint/config.js"
+  }
+}
