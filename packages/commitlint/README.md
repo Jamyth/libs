@@ -1,6 +1,8 @@
 # Jamyth-CommitLint
 
-A preset config of [commitlint](https://commitlint.js.org/#/) for [Git](https://git-scm.com/) commit message limitation
+A preset config of [commitlint](https://commitlint.js.org/#/) for [Git](https://git-scm.com/) commit message limitation.
+
+Designed for internal projects
 
 ## Installation
 
@@ -22,3 +24,13 @@ Then edit your package.json
 ```
 
 ## Writing Your Own Config or Extends
+
+```
+// your-commitlint.config.js
+const config = require('jamyth-commitlint');
+
+module.exports = {
+    ...config,
+    // your configs
+}
+```
