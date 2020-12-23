@@ -25,6 +25,7 @@ const config = {
                 "FIX",
                 "FORMAT",
                 "REFACTOR",
+                "RELEASE",
             ],
         ],
         "scope-case": [exports.RuleSeverity.Error, "always", "lower-case"],
