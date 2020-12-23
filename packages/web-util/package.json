@@ -1,0 +1,11 @@
+{
+  "name": "jamyth-web-util",
+  "version": "1.0.0",
+  "description": "A set of utils for web development",
+  "main": "./dist/index.js",
+  "author": "Jamyth",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --project config/tsconfig.src.json"
+  }
+}
