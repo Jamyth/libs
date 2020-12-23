@@ -1,2 +1,4 @@
 /config/
 tsconfig.json
+/src/
+/node_modules/

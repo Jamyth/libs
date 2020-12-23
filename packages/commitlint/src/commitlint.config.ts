@@ -49,6 +49,7 @@ const config: CommitlintConfig = {
         "FIX",
         "FORMAT",
         "REFACTOR",
+        "RELEASE",
         // prettier-format-preserve
       ],
     ],
