@@ -6,6 +6,9 @@
 /node_modules/
 /packages/*/node_modules/
 
+# React Util
+/packages/*/ui-test/
+
 # Yarn log
 yarn-error.log
 /package/*/yarn-error.log
