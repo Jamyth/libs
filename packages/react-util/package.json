@@ -1,0 +1,38 @@
+{
+  "name": "jamyth-react-util",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "JC studio",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "run-script": "ts-node --project config/tsconfig.script.json",
+    "start": "yarn run-script script/start.ts"
+  },
+  "peerDependencies": {
+    "@babel/runtime": ">=7.12.1",
+    "react": ">=16.14.0",
+    "react-dom": ">=16.14.0",
+    "react-router-dom": ">=5.2.0"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.12.5",
+    "@types/html-webpack-plugin": "^3.2.4",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/webpack-dev-server": "3.11.1",
+    "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.12",
+    "webpack": "^5.11.0",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

@@ -1,0 +1,36 @@
+#portal-container {
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
+
+  top: 50%;
+  left: 50%;
+
+  z-index: 1000;
+
+  transform: translate(-50%, -50%);
+
+  width: 350px;
+  height: 200px;
+
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid #aaa;
+
+  .portal-header {
+    padding: 1rem;
+    border-bottom: 1px solid #aaa;
+    h4 {
+      margin: 0;
+    }
+  }
+  .portal-body {
+    flex: 1;
+    padding: 0 1rem;
+    padding-top: 1rem;
+  }
+  .portal-footer {
+    text-align: center;
+    padding: 1rem;
+  }
+}

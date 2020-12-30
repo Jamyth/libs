@@ -1,0 +1,20 @@
+{
+  "extends": "../../../config/tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["DOM", "ESNext"],
+    "module": "ESNext",
+    "rootDir": "../",
+    "outDir": "../dist/tsc-out/",
+    "target": "ES2018",
+
+    "baseUrl": "../",
+    "paths": {
+      "@jamyth-frontend-libs/react-util/*": ["src/*"],
+      "test/*": ["ui-test/*"]
+    },
+
+    "jsx": "react",
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "include": ["../src/", "../ui-test/"]
+}
