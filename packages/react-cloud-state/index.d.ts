@@ -5,6 +5,9 @@ declare module "react-cloud-state" {
   }
   export const useSelector: <M extends CloudState, T>(fn: (state: M) => T) => T;
   export const useAction: (action: Function) => (...args: any[]) => void;
+  export const usePromiseAction: (
+    action: Function
+  ) => (...args: any[]) => Promise<void>;
   export const loading: <K extends keyof CloudState["loading"] & string>(
     key?: K
   ) => (action: Function) => (...args: any[]) => Promise<void>;

@@ -22,6 +22,14 @@ export const useAction = (action: Function) => {
   };
 };
 
+export const usePromiseAction = (action: Function) => {
+  const fn = useForceRender();
+  return async (...args: any[]) => {
+    await action(...args);
+    fn();
+  };
+};
+
 export const loading = <K extends keyof InitialState["loading"]>(
   key: K = "default" as K
 ) => {
@@ -47,7 +55,7 @@ export const loading = <K extends keyof InitialState["loading"]>(
       if (rootState.loading[key] === false) {
         setLoadingKey(true);
       }
-      action(...args);
+      await action(...args);
       setLoadingKey(false);
     };
   };
