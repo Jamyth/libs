@@ -2,8 +2,8 @@ name: React-Cloud-State Release
 on:
   push:
     branches: [master]
-  paths:
-    - "packages/react-cloud-state/**"
+    paths:
+      - "packages/react-cloud-state/**"
 
 jobs:
   build:
