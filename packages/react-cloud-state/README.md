@@ -8,6 +8,7 @@ Features Include:
 - APIs are similar to React
 - Centralize Module State into single file
 - Not Context / Redux knowledge required
+- Async Action Status (loading)
 - Easy to Learn
 
 # Notice
@@ -15,6 +16,16 @@ Features Include:
 The docs below is how you can manually setup this package, You are welcomed to install one of my cli tool called [`jamyth-script`](https://github.com/Jamyth/jamyth-script-v2/). As this package will be one of the dependencies of the cli tool, and easy generate the following codes in just one command !
 
 p.s. Jamyth is now working on the jamyth-script. Please wait.
+
+# Background
+
+Most of the time when we develop a webapp, we use state management library such as redux, etc...
+
+But there are some cases that we might want to access a state within a module or a small scope.
+
+What redux does is to make the state global, and we have to define the actions, reducer and stuff for just a boolean or array.
+
+Could we have something that can achieve a "semi-global" state, and also get rid of "Props drilling" issue ?
 
 # Installation
 
@@ -109,7 +120,7 @@ Here are the `actions` if you are familiar with redux.
 // This is not related to Step 4
 import { Main as MainComponent } from './component/Main';
 
-import {registerModule} from 'react-cloud-state';
+import {registerModule, loading} from 'react-cloud-state';
 import {State} from './type';
 import {RootState} from 'util/type'
 
@@ -125,7 +136,18 @@ const HomeModule = registerModule<RootState, "home">(
             setState({ helloWorld: text });
             // or
             setState(state => state.helloWorld = text);
-        }
+        },
+        // Async function
+        sendRequest: async () => {
+            await res = axios.get('blah blah');
+            setState({ helloWorld: 'fetched' });
+        },
+        // Async function with loading state
+        // key can be anything, or empty : 'list';
+        sendRequestWithStatus: loading('list')(async () => {
+            await res = axios.get('blah blah');
+            setState({ helloWorld: 'fetched' });
+        })
     })
 )
 
@@ -143,7 +165,7 @@ go to `module/home/component/Main.tsx`
 import React from 'react';
 import {actions} from 'module/home';
 import {useHomeState} from 'module/home/hook';
-import {useAction} from 'react-cloud-state';
+import {useAction, usePromiseAction, useLoadingState} from 'react-cloud-state';
 
 export const Main = React.memo(() => {
 
@@ -151,9 +173,20 @@ export const Main = React.memo(() => {
 
     const setHelloWorld = useAction(actions.setHelloWorld);
 
+    // should match the key provided in index.ts
+    const isLoading = useLoadingState('list');
+
+    const sendRequest = usePromiseAction(actions.sendRequest);
+    const sendRequestWithStatus = usePromiseAction(actions.sendRequestWithStatus);
+
+    React.useEffect(() => {
+      sendRequest();
+      sendRequestWithStatus();
+    }, [])
+
     return (
         <React.Fragment>
-            <h1>{helloWorld}</h1>
+            <h1>{isLoading ? 'Loading...' : helloWorld}</h1>
             <input
               value={helloWorld}
               onChange={e => setHelloWorld(e.target.value)}
