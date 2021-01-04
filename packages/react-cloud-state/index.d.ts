@@ -1,9 +1,18 @@
 declare module "react-cloud-state" {
   export interface CloudState {
+    loading: Record<string, boolean>;
     app: object;
   }
   export const useSelector: <M extends CloudState, T>(fn: (state: M) => T) => T;
   export const useAction: (action: Function) => (...args: any[]) => void;
+  export const loading: <K extends keyof CloudState["loading"] & string>(
+    key?: K
+  ) => (action: Function) => (...args: any[]) => Promise<void>;
+  export const useLoadingState: <
+    K extends keyof CloudState["loading"] & string
+  >(
+    key?: K
+  ) => boolean;
   export const registerModule: <
     ModuleState extends CloudState,
     ModuleName extends keyof ModuleState["app"] & string
