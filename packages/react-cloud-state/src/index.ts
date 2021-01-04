@@ -2,7 +2,6 @@ export {
   useSelector,
   useAction,
   usePromiseAction,
-  registerModule,
   loading,
   useLoadingState,
   register,
