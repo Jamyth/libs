@@ -1,6 +1,6 @@
 import React from "react";
 import { initialState as rootState, setState } from "./state";
-import { InitialState } from "./type";
+import { ActionCreators, InitialState } from "./type";
 import { produce } from "immer";
 
 const useForceRender = () => {
@@ -22,22 +22,50 @@ export const useAction = (action: Function) => {
   };
 };
 
+export const loading = <K extends keyof InitialState["loading"]>(
+  key: K = "default" as K
+) => {
+  const setLoadingKey = (status: boolean) =>
+    setState({
+      ...rootState,
+      loading: {
+        ...rootState.loading,
+        [key]: status,
+      },
+    });
+  if (rootState.loading[key] === undefined) {
+    setLoadingKey(true);
+  }
+  if (rootState.loading[key] === false) {
+    setLoadingKey(true);
+  }
+  return (action: Function) => {
+    return async (...args: any[]) => {
+      if (rootState.loading[key] === undefined) {
+        setLoadingKey(true);
+      }
+      if (rootState.loading[key] === false) {
+        setLoadingKey(true);
+      }
+      action(...args);
+      setLoadingKey(false);
+    };
+  };
+};
+
+export const useLoadingState = <K extends keyof InitialState["loading"]>(
+  key: K = "default" as K
+): boolean => {
+  return Boolean(rootState.loading[key]);
+};
+
 export const registerModule = <
   ModuleState extends InitialState,
   ModuleName extends keyof ModuleState["app"] & string
 >(
   moduleName: ModuleName,
   initialState: ModuleState["app"][ModuleName],
-  actionCreators: (store: {
-    setState: <K extends keyof ModuleState["app"][ModuleName]>(
-      stateOrUpdater:
-        | ModuleState["app"][ModuleName]
-        | Pick<ModuleState["app"][ModuleName], K>
-        | ((state: ModuleState["app"][ModuleName]) => void)
-    ) => void;
-    getState: () => ModuleState["app"][ModuleName];
-    getRootState: () => ModuleState;
-  }) => Record<string, Function>
+  actionCreators: ActionCreators<ModuleState, ModuleName>
 ) => {
   if (!(moduleName in rootState.app)) {
     setState({
