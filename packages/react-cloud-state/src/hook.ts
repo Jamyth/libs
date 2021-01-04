@@ -2,6 +2,8 @@ import React from "react";
 import { initialState as rootState, setState } from "./state";
 import { ActionCreators, InitialState } from "./type";
 import { produce } from "immer";
+import { Module } from "./Module";
+import { ModuleProxy } from "./ModuleProxy";
 
 const useForceRender = () => {
   const [, fn] = React.useReducer((s) => s + 1, []);
@@ -14,17 +16,19 @@ export const useSelector = <M extends InitialState, T>(
   return fn(rootState as M);
 };
 
-export const useAction = (action: Function) => {
+export const useAction = <P extends any[]>(action: (...args: P) => void) => {
   const fn = useForceRender();
-  return (...args: any[]) => {
+  return (...args: P) => {
     action(...args);
     fn();
   };
 };
 
-export const usePromiseAction = (action: Function) => {
+export const usePromiseAction = <P extends any[]>(
+  action: (...args: P) => void
+) => {
   const fn = useForceRender();
-  return async (...args: any[]) => {
+  return async (args: P) => {
     await action(...args);
     fn();
   };
@@ -65,6 +69,45 @@ export const useLoadingState = <K extends keyof InitialState["loading"]>(
   key: K = "default" as K
 ): boolean => {
   return Boolean(rootState.loading[key]);
+};
+
+export const register = <M extends Module<any, any>>(
+  module: M
+): ModuleProxy<M> => {
+  const moduleName: string = module.name;
+  if (!module.rootState.app[moduleName]) {
+    setState({
+      ...rootState,
+      app: {
+        ...rootState.app,
+        [moduleName]: module.initialState,
+      },
+    });
+  }
+
+  const actions: any = {};
+
+  const getKeys = <M extends Module<any, any>>(module: M) => {
+    const keys: string[] = [];
+    for (const propertyName of Object.getOwnPropertyNames(
+      Object.getPrototypeOf(module)
+    )) {
+      if (
+        (module as any)[propertyName] instanceof Function &&
+        propertyName !== "constructor"
+      ) {
+        keys.push(propertyName);
+      }
+    }
+    return keys;
+  };
+
+  getKeys(module).forEach((key) => {
+    const method = (module as any)[key];
+    actions[key] = method.bind(module);
+  });
+
+  return new ModuleProxy(module, actions);
 };
 
 export const registerModule = <
