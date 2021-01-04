@@ -120,7 +120,7 @@ Here are the `actions` if you are familiar with redux.
 // This is not related to Step 4
 import { Main as MainComponent } from './component/Main';
 
-import {registerModule, loading} from 'react-cloud-state';
+import {register, Module} from 'react-cloud-state';
 import {State} from './type';
 import {RootState} from 'util/type'
 
@@ -128,30 +128,42 @@ const initialState: State = {
     helloWorld: 'Hello World',
 }
 
-const HomeModule = registerModule<RootState, "home">(
-    "home",
-    initialState,
-    ({ setState, getState, getRootState }) => ({
-        setHelloWorld: (text: string) => {
-            setState({ helloWorld: text });
-            // or
-            setState(state => state.helloWorld = text);
-        },
-        // Async function
-        sendRequest: async () => {
-            await res = axios.get('blah blah');
-            setState({ helloWorld: 'fetched' });
-        },
-        // Async function with loading state
-        // key can be anything, or empty : 'list';
-        sendRequestWithStatus: loading('list')(async () => {
-            await res = axios.get('blah blah');
-            setState({ helloWorld: 'fetched' });
-        })
-    })
-)
+class HomeModule extends Module<RootState, "home">{
+    // Lifecycle Methods
+    async onEnter() {
+      // ComponentDidMount
+      await this.sendRequest();
+    }
 
-export const actions = HomeModule.getActions();
+    onRender() {
+      // ComponentDidUpdate
+    }
+
+    onError() {
+      // ComponentDidCatch
+    }
+
+    onDestroy() {
+      // ComponentWillUnmount
+    }
+
+    // You can use this.state | this.rootState to access the state
+
+    setHelloWorld(text: string) => {
+        this.setState({ helloWorld: text });
+        // or
+        this.setState(state => state.helloWorld = text);
+    },
+    // Async function
+    async sendRequest () => {
+        await res = axios.get('blah blah');
+        this.setState({ helloWorld: 'fetched' });
+    },
+}
+
+const homeModule = register(new HomeModule("home", initialState));
+export const actions = homeModule.getActions();
+export const Main = homeModule.attachLifecycle(MainComponent);
 ```
 
 Step 5
@@ -173,20 +185,9 @@ export const Main = React.memo(() => {
 
     const setHelloWorld = useAction(actions.setHelloWorld);
 
-    // should match the key provided in index.ts
-    const isLoading = useLoadingState('list');
-
-    const sendRequest = usePromiseAction(actions.sendRequest);
-    const sendRequestWithStatus = usePromiseAction(actions.sendRequestWithStatus);
-
-    React.useEffect(() => {
-      sendRequest();
-      sendRequestWithStatus();
-    }, [])
-
     return (
         <React.Fragment>
-            <h1>{isLoading ? 'Loading...' : helloWorld}</h1>
+            <h1>{helloWorld}</h1>
             <input
               value={helloWorld}
               onChange={e => setHelloWorld(e.target.value)}
