@@ -12,3 +12,6 @@
 # Yarn log
 yarn-error.log
 /package/*/yarn-error.log
+
+# Cache
+**/.webpack-cache/
