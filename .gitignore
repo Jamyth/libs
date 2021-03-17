@@ -6,6 +6,9 @@
 /node_modules/
 /packages/*/node_modules/
 
+# Build
+/packages/web-util/dist
+
 # React Util
 /packages/*/ui-test/
 
