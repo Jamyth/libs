@@ -16,5 +16,10 @@
 yarn-error.log
 /package/*/yarn-error.log
 
+<<<<<<< HEAD
 # Cache
 **/.webpack-cache/
+=======
+# DS_Store
+**/.DS_Store
+>>>>>>> [CHORE]: root: remove .DS_Store
