@@ -29,4 +29,3 @@ exports.TextUtil = Object.freeze({
     interpolate,
     splitByLength,
 });
-//# sourceMappingURL=TextUtil.js.map

@@ -29,4 +29,3 @@ exports.NumberUtil = Object.freeze({
     min,
     formatWithComma,
 });
-//# sourceMappingURL=NumberUtil.js.map

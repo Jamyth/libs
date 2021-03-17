@@ -20,4 +20,3 @@ exports.EnumUtil = Object.freeze({
     toArray,
     fromValue,
 });
-//# sourceMappingURL=EnumUtil.js.map

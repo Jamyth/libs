@@ -28,4 +28,3 @@ Object.defineProperty(exports, "RandomUtil", { enumerable: true, get: function (
 var TextUtil_1 = require("./core/TextUtil");
 Object.defineProperty(exports, "TextUtil", { enumerable: true, get: function () { return TextUtil_1.TextUtil; } });
 __exportStar(require("./type"), exports);
-//# sourceMappingURL=index.js.map

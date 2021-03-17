@@ -81,4 +81,3 @@ exports.DateUtil = Object.freeze({
     format,
     isSameMinute,
 });
-//# sourceMappingURL=DateUtil.js.map

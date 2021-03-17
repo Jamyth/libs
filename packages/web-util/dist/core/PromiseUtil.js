@@ -8,4 +8,3 @@ const raceSuccess = (promises) => {
 exports.PromiseUtil = Object.freeze({
     raceSuccess,
 });
-//# sourceMappingURL=PromiseUtil.js.map
