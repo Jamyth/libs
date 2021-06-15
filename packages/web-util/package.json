@@ -1,6 +1,6 @@
 {
   "name": "jamyth-web-util",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A set of utils for web development",
   "main": "./dist/index.js",
   "author": "Jamyth",

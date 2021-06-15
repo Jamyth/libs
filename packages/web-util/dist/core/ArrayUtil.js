@@ -6,7 +6,7 @@ const sum = (numbers) => {
 };
 const sumByKey = (array, key) => {
     let sum = 0;
-    array.forEach((_) => (sum += Number(_[key]) ?? 0));
+    array.forEach((_) => { var _a; return (sum += (_a = Number(_[key])) !== null && _a !== void 0 ? _a : 0); });
     return sum;
 };
 const toggleElement = (array, element) => {
